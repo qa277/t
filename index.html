@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id = "header">That doesn't seem right</div>
+    <div class = "container">
+        <div id = "id-paste" class="container">
+            <h1>Discord User Lookup</h1>
+            <input type="text" id = "id-container" placeholder="Discord ID">
+            <p>How to get a user's <a href="">Discord ID</a>.</p>
+            <button effect = "ripple" id = "look-up">Look Up</button>
+        </div>
+        <div id = "panel-container" class="hidden container">
+            <div id = "panel">
+                <div id = "profileImg">
+                    <a href="https://cdn.discordapp.com/avatars/604390222515404813/a_981e05b11efcbf27cfc2a773775ff144.gif?size=1024" target = "_blank">
+                        <img src="https://cdn.discordapp.com/avatars/604390222515404813/a_981e05b11efcbf27cfc2a773775ff144.gif?size=1024" alt="Profile Image">
+                    </a>
+                    <p></p>
+                    <a href="https://discord.com/users/604390222515404813/">See user's profile</a>
+                </div>
+                <div id = "profileData">
+                    <p>Created at: Fri, 26 Jul 2019 19:10:58 UTC</p>
+                    <p>Username: qa#1337</p>
+                    <p>Badges: Nitro</p>
+                    <p>Banner Color: #b13436</p>
+                    <p>Query ID: 604390222515404813</p>
+                </div>
+            </div>
+            <p id = "go-back">Go Back</p>
+        </div>
+    </div>
+</body>
+<script src="ui.js"></script>
+<script src="ripple.js"></script>
+</html>
