@@ -7,7 +7,7 @@ const idInput = document.getElementById("id-container");
 
 const errorHeader = document.getElementById("header");
 
-const endPoint = `http://localhost:5000`;
+const endPoint = `https://discord-lookup-server.herokuapp.com/`;
 
 function fetchDataByUser(id) {
     let q = new XMLHttpRequest();
