@@ -15,28 +15,28 @@
     <div class = "container">
         <div id = "id-paste" class="container">
             <h1>Discord User Lookup</h1>
-            <input type="text" id = "id-container" placeholder="Discord ID">
-            <p>How to get a user's <a href="">Discord ID</a>.</p>
-            <button effect = "ripple" id = "look-up">Look Up</button>
+            <div id = "id-ui">
+                <input type="number" id = "id-container" placeholder="Discord ID">
+                <button effect = "ripple" id = "look-up">Look Up</button>
+            </div>
         </div>
         <div id = "panel-container" class="hidden container">
             <div id = "panel">
                 <div id = "profileImg">
-                    <a href="https://cdn.discordapp.com/avatars/604390222515404813/a_981e05b11efcbf27cfc2a773775ff144.gif?size=1024" target = "_blank">
-                        <img src="https://cdn.discordapp.com/avatars/604390222515404813/a_981e05b11efcbf27cfc2a773775ff144.gif?size=1024" alt="Profile Image">
+                    <a href="" target = "_blank" id = "profile-image-link">
+                        <img src="" alt="Profile Image" id = "profile-image">
                     </a>
                     <p></p>
-                    <a href="https://discord.com/users/604390222515404813/">See user's profile</a>
                 </div>
                 <div id = "profileData">
-                    <p>Created at: Fri, 26 Jul 2019 19:10:58 UTC</p>
-                    <p>Username: qa#1337</p>
-                    <p>Badges: Nitro</p>
-                    <p>Banner Color: #b13436</p>
-                    <p>Query ID: 604390222515404813</p>
+                    <p id = "created-at">Created at: </p>
+                    <p id = "username">Username: </p>
+                    <p id = "badges">Badges: </p>
+                    <p id = "banner-color">Banner Color: </p>  
+                    <p id = "query-id">Query ID: </p>
                 </div>
             </div>
-            <p id = "go-back">Go Back</p>
+            <button id = "go-back" effect="ripple">Go Back</button>
         </div>
     </div>
 </body>
