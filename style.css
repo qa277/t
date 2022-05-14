@@ -1,131 +1,73 @@
-button {
-    width: 140px;
-    height: 25px;
-    color: rgb(95, 95, 255);
-    border: 1px solid rgb(153, 153, 255);
-    background-color: white;
-    cursor: pointer;
-    border-radius: 0.25vw;
-    margin-left: 3px;
+const lookUpButton = document.getElementById("look-up");
+const panel = document.getElementById("panel-container");
+const goBack = document.getElementById("go-back");
+const idPaste = document.getElementById("id-paste");
+
+const idInput = document.getElementById("id-container");
+
+const errorHeader = document.getElementById("header");
+
+const endPoint = `https://discord-lookup-server.herokuapp.com`;
+
+function uToD(unix) {  
+    let stamp = moment.unix(unix/1000)
+    return stamp.format('MM/DD/YY - h:mm:ss A');
 }
 
-#id-container {
-    flex-grow: 1;
+function fetchDataByUser(id) {
+    let q = new XMLHttpRequest();
+    q.open("GET", `${endPoint}/${id}`);  
+    q.send();
+
+    q.onload = function() {
+        let res = JSON.parse(q.responseText);
+        console.log(res);
+        if (res.bannerURL != null) {
+            document.getElementById("banner-img").style.display = "block";
+            document.getElementById("banner-header").style.display = "block";
+            document.getElementById("banner-color").style.display = "none";
+            document.getElementById("panel").style.height = "350px";
+            document.getElementById("banner-img").src = `https://cdn.discordapp.com/banners/${res.query}/${res.bannerURL}?size=1024`;
+        } else {
+            document.getElementById("panel").style.height = "245px";
+            document.getElementById("banner-img").style.display = "none";
+            document.getElementById("banner-header").style.display = "none";
+            document.getElementById("banner-color").style.display = "block";
+        }
+        document.getElementById("created-at").innerText = `Created at: ${uToD(res.createdAt)}`
+        document.getElementById("username").innerText = `Username: ${res.username}`;
+        document.getElementById("profile-image").src = res.avatar + "?size=1024";
+        document.getElementById("banner-color").innerText = `Banner Color: ${res.bannerColor}`;
+        //document.getElementById("banner-color").style.backgroundColor = res.bannerColor;
+        document.getElementById("query-id").innerText = `Query ID: ${res.query}`;
+        document.getElementById("badges").innerText = `Badges: ${res.badge}`;
+        document.getElementById("profile-image-link").href = res.avatar + "?size=1024"
+        idPaste.className = "container hidden"
+        panel.className = "container visible";
+    }
+    q.onerror = function(e) {
+        console.log(e);
+        console.log(`Request status: ${q.status}`)
+        errorHeader.className = "show"
+        let index = 0;
+        setInterval(function() {
+            if (index != 1) {
+                errorHeader.className = ""
+                index++;
+                console.log("RUNNING");
+            } else {
+                clearInterval();
+            }
+        }, 4000)
+    }
 }
 
-#go-back {
-    margin-top: 20px;
+lookUpButton.onclick = function() {
+    const id = idInput.value;
+    fetchDataByUser(id);
 }
 
-#id-ui {
-    display: flex;
-    flex-direction: row;
-
-    margin-left: 7px;
-}
-
-.hidden {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s 0.6s, opacity 0.6s linear;
-}
-
-.visible {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.6s linear;
-}
-
-h1 {
-    font-size: 57px;
-    padding: 0;
-    margin: 0;
-}
-
-* {
-    font-family: 'Montserrat', sans-serif;
-}
-
-#panel {
-    display: flex;
-    flex-direction: row;
-    border: 2px solid rgb(153, 153, 255);
-    padding: 0.5%;
-    border-radius: 0.5vw;
-    z-index: 3;
-    width: 600px;
-    height: 245px;
-}
-
-#look-up {
-    width: 200px;
-}
-
-#panel-container {
-    margin-top: 70px;
-}
-
-#profileData {
-    margin-left: 10px;
-}
-
-input {
-    width: 275px;
-    height: 20px;
-    border: 0.25px solid black;
-    outline: none;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-}
-
-#header {
-    color: white;
-    background-color: rgb(255, 98, 98);
-    display: none;
-}
-
-img {
-    border-radius: 50%;
-    height: 244px;
-}
-
-.container {
-    z-index: 99999999;
-    position: absolute;
-    left: 50%;
-    top: 42%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    width: 600px;
-}
-
-/* https://github.com/BaseMax/RippleEffectCSS */
-[effect=ripple] {
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-[effect=ripple]:before {
-    content: "";
-    display: block;
-    border-radius: 50%;
-    position: absolute;
-    pointer-events: none;
-    transform-origin: center;
-    top: calc(var(--y) * 1px);
-    left: calc(var(--x) * 1px);
-    width: calc(var(--d) * 1px);
-    height: calc(var(--d) * 1px);
-    background: var(--ripple-background, rgb(111, 133, 255));
-    transform: translate(-50%, -50%) scale(var(--s, 1));
-    opacity: calc(var(--o, 1) * var(--ripple-opacity, 0.3));
-    transition: calc(var(--t, 0) * var(--ripple-duration, 600ms)) var(--ripple-easing, linear);
+goBack.onclick = function() {
+    idPaste.className = "container visible"
+    panel.className = "container hidden";
 }
